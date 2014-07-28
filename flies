@@ -1,0 +1,69 @@
+class Flies {
+
+  float x = random(50, width-50);
+  float y = random(50, height-50);
+  float xspeed = 2;
+  float yspeed = 2;
+
+  float t = random(0, 50);
+  float u = random(0, 50);
+  float z = random(2, 10);
+
+  void display() {
+
+    float x = noise(t);
+    x = map(x, 0, 1, 0, width);
+
+    float y = noise(u);
+    y = map(y, 0, 1, 0, height);
+
+    noStroke();
+    fill(50, random(50, 200));
+    ellipse(x, y, z, z);
+  }
+
+  void moving() {  
+    t = t+ 0.01;
+    u = u+ 0.01;
+  }
+
+  void bounce() {
+    if ((x < 0 + 5) || (x > width - 5)) {
+      t = t * -1;
+    }
+
+    if ((y < 0 + 5) || (y > height - 5)) 
+    {
+      u = u * -1;
+    }
+  }
+} 
+
+
+int total= 50;
+
+Flies[] flies = new Flies[total];
+
+void setup()
+{
+  size (600, 400);
+  for (int i=0; i<total; i++) 
+  {
+    flies[i] = new Flies();
+  }
+}
+
+void draw() {
+  
+  background(250);
+
+  //fill(250,10);
+  //rect(0, 0, width, height);
+
+  for (int i=0; i<total; i++) 
+  {
+    flies[i].display();
+    flies[i].moving();
+    flies[i].bounce();
+  }
+}
